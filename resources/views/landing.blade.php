@@ -22,6 +22,7 @@
             width: 100%;
             min-height: 100%;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
         body {
@@ -35,6 +36,7 @@
             overflow-x: hidden;
         }
 
+        /* NAVBAR */
         .navbar {
             width: 100%;
             height: 85px;
@@ -80,14 +82,22 @@
             padding: 16px 24px;
             border-radius: 14px;
             color: white;
+            transition: 0.3s;
         }
 
+        .login-btn:hover {
+            background: #0d7fd6;
+            transform: translateY(-2px);
+        }
+
+        /* HERO */
         .hero {
             position: relative;
             width: 100%;
             min-height: calc(100vh - 85px);
             background: url('{{ asset("images/background.jpg") }}');
             background-size: cover;
+            background-position: center right;
             display: flex;
             align-items: center;
             padding: 60px 85px;
@@ -149,6 +159,7 @@
             letter-spacing: 0.8px;
             padding: 17px 28px;
             border-radius: 8px;
+            transition: 0.3s;
         }
 
         .btn-dark {
@@ -156,12 +167,12 @@
             color: white;
         }
 
-        .btn-light {
-            background: white;
-            color: #071525;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.22);
+        .btn-dark:hover {
+            background: #1e9bff;
+            transform: translateY(-3px);
         }
 
+        /* TEKNOLOGI */
         .technology {
             width: 100%;
             min-height: 650px;
@@ -211,9 +222,15 @@
             padding: 38px 24px 24px;
             text-align: center;
             box-shadow: inset 0 2px 3px rgba(0,0,0,0.2);
+            transition: 0.3s;
         }
 
-        .icon-box {
+        .tech-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.18);
+        }
+
+        .tech-icon {
             width: 92px;
             height: 62px;
             background: white;
@@ -225,7 +242,7 @@
             box-shadow: 0 3px 8px rgba(0,0,0,0.25);
         }
 
-        .icon-box i {
+        .tech-icon i {
             font-size: 42px;
             color: #2d9cff;
         }
@@ -244,6 +261,267 @@
             color: #000;
         }
 
+        /* MENGAPA MEMILIH WEB */
+        .why-section {
+            position: relative;
+            min-height: 560px;
+            padding: 50px 70px 45px;
+            overflow: hidden;
+            border-top: 3px solid #1e91e8;
+            border-bottom: 3px solid #1e91e8;
+            background:
+                linear-gradient(rgba(255,255,255,0.90), rgba(255,255,255,0.94)),
+                url('{{ asset("images/background.jpg") }}');
+            background-repeat: no-repeat;
+            background-size: 420px;
+            background-position: top right;
+        }
+
+        .why-section::before {
+            content: "";
+            position: absolute;
+            left: -120px;
+            top: 35px;
+            width: 310px;
+            height: 310px;
+            border-radius: 50%;
+            border: 1px dashed rgba(30, 145, 232, 0.25);
+            background:
+                radial-gradient(circle, rgba(30,145,232,0.25) 2px, transparent 3px);
+            background-size: 30px 30px;
+            opacity: 0.7;
+        }
+
+        .section-header {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-header h5 {
+            color: #1e91e8;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .section-header h1 {
+            font-size: 38px;
+            color: #0d1d2b;
+            font-weight: 900;
+            margin-bottom: 18px;
+        }
+
+        .section-header p {
+            font-size: 15px;
+            color: #34495e;
+            line-height: 1.7;
+            max-width: 650px;
+            margin: 0 auto;
+            font-weight: 600;
+        }
+
+        .why-cards {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-top: 45px;
+        }
+
+        .why-card {
+            background: #ffffff;
+            min-height: 220px;
+            border-radius: 16px;
+            padding: 30px 22px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(13, 29, 43, 0.12);
+            transition: 0.3s ease;
+        }
+
+        .why-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(30, 145, 232, 0.25);
+        }
+
+        .why-icon {
+            width: 62px;
+            height: 62px;
+            border-radius: 50%;
+            background: #eef7ff;
+            border: 2px solid #d3eaff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 18px;
+            color: #1e91e8;
+        }
+
+        .why-icon i {
+            font-size: 30px;
+        }
+
+        .why-card h3 {
+            font-size: 17px;
+            color: #0d1d2b;
+            margin-bottom: 12px;
+            font-weight: 800;
+        }
+
+        .mini-line {
+            width: 35px;
+            height: 3px;
+            background: #1e91e8;
+            margin: 0 auto 15px;
+            border-radius: 10px;
+        }
+
+        .why-card p {
+            font-size: 13px;
+            color: #455a64;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            margin-top: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .btn-primary,
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 800;
+            border-radius: 7px;
+            padding: 13px 30px;
+            transition: 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #0d1d2b;
+            color: white;
+            border: 2px solid #0d1d2b;
+        }
+
+        .btn-primary:hover {
+            background: #1e91e8;
+            border-color: #1e91e8;
+            transform: translateY(-3px);
+        }
+
+        .btn-outline {
+            background: white;
+            color: #0d1d2b;
+            border: 2px solid #9ed1ff;
+        }
+
+        .btn-outline:hover {
+            background: #eef7ff;
+            transform: translateY(-3px);
+        }
+
+        /* FOOTER */
+        .footer {
+            background: #071a2b;
+            color: #dcecff;
+            padding: 45px 70px 20px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: 1.3fr repeat(4, 1fr);
+            gap: 45px;
+            margin-bottom: 35px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo img {
+            width: 145px;
+            height: auto;
+        }
+
+        .footer-col h3 {
+            color: white;
+            font-size: 18px;
+            margin-bottom: 12px;
+            font-weight: 800;
+        }
+
+        .footer-line {
+            width: 28px;
+            height: 3px;
+            background: #1e91e8;
+            margin-bottom: 15px;
+            border-radius: 10px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 13px;
+            font-size: 13px;
+            color: #cbd9e6;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .footer-col ul li i {
+            color: #21b8ff;
+            font-size: 14px;
+            width: 16px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.12);
+            padding-top: 18px;
+            text-align: center;
+            font-size: 12px;
+            color: #b8c7d6;
+        }
+
+        .footer-bottom i {
+            color: #21b8ff;
+            margin-right: 6px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 992px) {
+            .why-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .why-section {
+                padding: 40px 35px;
+            }
+
+            .footer {
+                padding: 40px 35px 20px;
+            }
+        }
+
         @media (max-width: 900px) {
             .navbar {
                 height: 68px;
@@ -255,7 +533,12 @@
             }
 
             .nav-menu {
-                display: none;
+                display: flex;
+            }
+
+            .login-btn {
+                padding: 12px 15px;
+                font-size: 11px;
             }
 
             .hero {
@@ -294,24 +577,63 @@
                 gap: 30px;
             }
         }
+
+        @media (max-width: 600px) {
+            .why-section {
+                padding: 35px 20px;
+                background-size: 260px;
+            }
+
+            .section-header h1 {
+                font-size: 28px;
+            }
+
+            .section-header p {
+                font-size: 13px;
+            }
+
+            .why-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-primary,
+            .btn-outline {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .footer-logo img {
+                width: 130px;
+            }
+        }
     </style>
 </head>
+
 <body>
     <div class="page">
 
+        <!-- NAVBAR -->
         <header class="navbar">
             <div class="logo">
                 <img src="{{ asset('images/logo.png') }}" alt="Logo EyeDetect" />
             </div>
 
             <nav class="nav-menu">
-                <a href="#">BERANDA</a>
-                <a href="#">PANDUAN/CARA KERJA</a>
-                <a href="#">TENTANG</a>
-                <a href="{{ route('login') }}" class="login-btn">MASUK/LOGIN</a>    
+                <a href="{{ route('login') }}" class="login-btn">MASUK/LOGIN</a>
             </nav>
         </header>
 
+        <!-- HERO -->
         <section class="hero">
             <div class="hero-text">
                 <h1>DETEKSI<br />PENYAKIT<br />MATA</h1>
@@ -323,12 +645,12 @@
                 </p>
 
                 <div class="hero-buttons">
-                    <a href="#" class="btn-dark">MULAI DETEKSI</a>
-                    <a href="#" class="btn-light">PANDUAN/CARA KERJA</a>
+                    <a href="{{ route('login') }}" class="btn-dark">Masuk ke Akun</a>
                 </div>
             </div>
         </section>
 
+        <!-- TEKNOLOGI -->
         <section class="technology">
             <div class="section-badge">TEKNOLOGI</div>
 
@@ -341,7 +663,7 @@
 
             <div class="tech-cards">
                 <div class="tech-card">
-                    <div class="icon-box">
+                    <div class="tech-icon">
                         <i class="fa-solid fa-brain"></i>
                     </div>
                     <h3>Deep Learning</h3>
@@ -353,7 +675,7 @@
                 </div>
 
                 <div class="tech-card">
-                    <div class="icon-box">
+                    <div class="tech-icon">
                         <i class="fa-solid fa-mobile-screen-button"></i>
                     </div>
                     <h3>MobileNet V2</h3>
@@ -364,7 +686,7 @@
                 </div>
 
                 <div class="tech-card">
-                    <div class="icon-box">
+                    <div class="tech-icon">
                         <i class="fa-solid fa-code-branch"></i>
                     </div>
                     <h3>TensorFlow</h3>
@@ -375,6 +697,148 @@
                 </div>
             </div>
         </section>
+
+        <!-- MENGAPA MEMILIH WEB KAMI -->
+        <section class="why-section">
+            <div class="section-header">
+                <h5>ALASAN TERBAIK UNTUK MENGGUNAKAN EYEDETECT</h5>
+                <h1>MENGAPA MEMILIH WEB KAMI?</h1>
+                <p>
+                    EyeDetect membantu Anda mendeteksi penyakit mata dengan mudah, mengerti,
+                    dan didukung teknologi kecerdasan buatan yang canggih.
+                </p>
+            </div>
+
+            <div class="why-cards">
+                <div class="why-card">
+                    <div class="why-icon">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <h3>Deteksi Cepat</h3>
+                    <div class="mini-line"></div>
+                    <p>
+                        Hasil analisis dalam hitungan detik. Unggah citra mata Anda
+                        dan dapatkan hasil instan tanpa menunggu lama.
+                    </p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon">
+                        <i class="fa-solid fa-crosshairs"></i>
+                    </div>
+                    <h3>Akurasi Tinggi</h3>
+                    <div class="mini-line"></div>
+                    <p>
+                        Didukung model AI terlatih dengan dataset medis berkualitas
+                        untuk hasil deteksi yang akurat dan andal.
+                    </p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon">
+                        <i class="fa-solid fa-eye"></i>
+                    </div>
+                    <h3>Visualisasi Explainable AI</h3>
+                    <div class="mini-line"></div>
+                    <p>
+                        Lihat area yang terdeteksi dengan heatmap dan penjelasan
+                        yang mudah dipahami untuk transparansi hasil.
+                    </p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon">
+                        <i class="fa-solid fa-hand-pointer"></i>
+                    </div>
+                    <h3>Mudah Digunakan</h3>
+                    <div class="mini-line"></div>
+                    <p>
+                        Antarmuka sederhana dan intuitif yang dapat digunakan oleh
+                        siapa saja, kapan saja, di mana saja.
+                    </p>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <a href="{{ route('login') }}" class="btn-primary">
+                    <i class="fa-solid fa-eye"></i> Mulai Deteksi
+                </a>
+
+                <a href="#teknologi" class="btn-outline">
+                    <i class="fa-regular fa-bookmark"></i> Pelajari Lebih Lanjut
+                </a>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div class="footer-container">
+
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img src="{{ asset('images/logo.png') }}" alt="Logo EyeDetect">
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Fitur</h3>
+                    <div class="footer-line"></div>
+                    <ul>
+                        <li><i class="fa-regular fa-eye"></i> Deteksi Penyakit Mata</li>
+                        <li><i class="fa-solid fa-brain"></i> Deep Learning</li>
+                        <li><i class="fa-regular fa-chart-bar"></i> Explainable AI</li>
+                        <li><i class="fa-solid fa-cloud-arrow-up"></i> Upload Gambar Mata</li>
+                        <li><i class="fa-solid fa-chart-line"></i> Hasil Prediksi</li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Tentang</h3>
+                    <div class="footer-line"></div>
+                    <ul>
+                        <li><i class="fa-regular fa-circle-info"></i> Tentang EyeDetect</li>
+                        <li><i class="fa-solid fa-gear"></i> Cara Kerja</li>
+                        <li><i class="fa-solid fa-microchip"></i> Teknologi Sistem</li>
+                        <li><i class="fa-regular fa-star"></i> Keunggulan Website</li>
+                        <li><i class="fa-regular fa-user"></i> Tim Pengembang</li>
+                        <li><i class="fa-solid fa-shield-halved"></i> Kebijakan Privasi</li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Bantuan</h3>
+                    <div class="footer-line"></div>
+                    <ul>
+                        <li><i class="fa-regular fa-rectangle-list"></i> Panduan Penggunaan</li>
+                        <li><i class="fa-regular fa-circle-question"></i> Pusat Bantuan</li>
+                        <li><i class="fa-solid fa-question"></i> FAQ</li>
+                        <li><i class="fa-regular fa-newspaper"></i> Artikel Edukasi</li>
+                        <li><i class="fa-regular fa-eye"></i> Tips Kesehatan Mata</li>
+                        <li><i class="fa-regular fa-user"></i> Dukungan Pengguna</li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Kontak</h3>
+                    <div class="footer-line"></div>
+                    <ul>
+                        <li><i class="fa-regular fa-envelope"></i> EyeDetect@gmail.com</li>
+                        <li><i class="fa-brands fa-whatsapp"></i> 0821-7242-9856</li>
+                        <li><i class="fa-brands fa-instagram"></i> @EyeDetect</li>
+                        <li><i class="fa-regular fa-pen-to-square"></i> Saran & Masukan</li>
+                        <li><i class="fa-regular fa-handshake"></i> Kerja Sama</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <p>
+                    <i class="fa-solid fa-shield-halved"></i>
+                    © 2026 EyeDetect — Deteksi Penyakit Mata Berbasis AI
+                </p>
+            </div>
+        </footer>
 
     </div>
 </body>

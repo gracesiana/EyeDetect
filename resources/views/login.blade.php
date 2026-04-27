@@ -1,299 +1,272 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login User - EyeDetect</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login User - EyeDetect</title>
 
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-  />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, Helvetica, sans-serif;
-    }
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
 
-    body {
-      min-height: 100vh;
-      background: #eef1f5;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      position: relative;
-    }
+        body {
+            min-height: 100vh;
+            background: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow-x: hidden;
+        }
 
-    /* background motif */
-    body::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at 78% 50%, rgba(255,255,255,0.35), transparent 30%),
-        url("{{ url_for('static', filename='background.jpg') }}");
-      background-repeat: no-repeat;
-      background-position: right center;
-      background-size: contain;
-      opacity: 0.12;
-      pointer-events: none;
-    }
+        body::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)),
+                url("{{ asset('images/login-bg.png') }}");
+            background-size: cover;
+            background-position: center;
+            opacity: 0.45;
+            z-index: 1;
+        }
 
-    body::after {
-      content: "";
-      position: absolute;
-      right: -120px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 620px;
-      height: 620px;
-      border-radius: 50%;
-      background:
-        radial-gradient(circle, transparent 34%, rgba(0,0,0,0.03) 35%, transparent 36%),
-        radial-gradient(circle, transparent 49%, rgba(0,0,0,0.03) 50%, transparent 51%),
-        radial-gradient(circle, transparent 64%, rgba(0,0,0,0.03) 65%, transparent 66%);
-      pointer-events: none;
-    }
+        .login-wrapper {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 420px;
+            padding: 20px;
+        }
 
-    .login-wrapper {
-      width: 100%;
-      max-width: 520px;
-      padding: 20px;
-      position: relative;
-      z-index: 2;
-    }
+        .login-card {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            padding: 28px 26px 24px;
+            text-align: center;
+        }
 
-    .login-card {
-      background: #ffffff;
-      border-radius: 26px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.10);
-      padding: 42px 38px 34px;
-    }
+        .user-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: #e8f1ff;
+            color: #1f6fe5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 18px;
+            font-size: 34px;
+        }
 
-    .user-icon {
-      width: 82px;
-      height: 82px;
-      border-radius: 50%;
-      background: #dfe9f8;
-      margin: 0 auto 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #1f73ea;
-      font-size: 38px;
-    }
+        .login-card h1 {
+            font-size: 22px;
+            color: #222;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
 
-    .login-card h1 {
-      text-align: center;
-      font-size: 34px;
-      color: #111827;
-      margin-bottom: 12px;
-      font-weight: 800;
-    }
+        .login-card p {
+            color: #7a7a7a;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 22px;
+        }
 
-    .subtitle {
-      text-align: center;
-      color: #6b7280;
-      font-size: 14px;
-      line-height: 1.6;
-      margin-bottom: 30px;
-    }
+        .input-group {
+            position: relative;
+            margin-bottom: 14px;
+        }
 
-    .form-group {
-      margin-bottom: 18px;
-    }
+        .input-group input {
+            width: 100%;
+            height: 46px;
+            border: 1px solid #d7d7d7;
+            border-radius: 6px;
+            padding: 0 42px;
+            font-size: 14px;
+            outline: none;
+            background: #fff;
+        }
 
-    .form-group label {
-      display: block;
-      font-size: 15px;
-      font-weight: 700;
-      color: #111827;
-      margin-bottom: 8px;
-    }
+        .input-group input:focus {
+            border-color: #1f6fe5;
+            box-shadow: 0 0 0 2px rgba(31,111,229,0.1);
+        }
 
-    .input-box {
-      position: relative;
-    }
+        .input-group .left-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #8b8b8b;
+            font-size: 15px;
+        }
 
-    .input-box input {
-      width: 100%;
-      height: 56px;
-      border: 1.5px solid #d1d5db;
-      border-radius: 12px;
-      outline: none;
-      padding: 0 52px;
-      font-size: 16px;
-      color: #111827;
-      background: #fff;
-    }
+        .input-group .right-icon {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #8b8b8b;
+            font-size: 15px;
+            cursor: pointer;
+        }
 
-    .input-box input:focus {
-      border-color: #1f73ea;
-      box-shadow: 0 0 0 3px rgba(31, 115, 234, 0.10);
-    }
+        .btn-login {
+            width: 100%;
+            height: 46px;
+            border: none;
+            border-radius: 6px;
+            background: #1f6fe5;
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 4px;
+            transition: 0.3s;
+        }
 
-    .input-box .left-icon,
-    .input-box .right-icon {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #6b7280;
-      font-size: 20px;
-    }
+        .btn-login:hover {
+            background: #165dcc;
+        }
 
-    .input-box .left-icon {
-      left: 16px;
-    }
+        .error-text {
+            color: #e53935;
+            font-size: 13px;
+            text-align: left;
+            margin-top: -8px;
+            margin-bottom: 10px;
+        }
 
-    .input-box .right-icon {
-      right: 16px;
-      cursor: pointer;
-      background: none;
-      border: none;
-    }
+        .extra-text {
+            margin-top: 16px;
+            font-size: 14px;
+            color: #444;
+        }
 
-    .login-btn {
-      width: 100%;
-      height: 58px;
-      border: none;
-      border-radius: 12px;
-      background: #1f73ea;
-      color: #fff;
-      font-size: 18px;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 10px;
-      transition: 0.2s;
-    }
+        .extra-text a,
+        .forgot a {
+            color: #1f6fe5;
+            text-decoration: none;
+            font-weight: 600;
+        }
 
-    .login-btn:hover {
-      background: #1764cf;
-    }
+        .extra-text a:hover,
+        .forgot a:hover {
+            text-decoration: underline;
+        }
 
-    .bottom-text {
-      margin-top: 26px;
-      text-align: center;
-      font-size: 15px;
-      color: #374151;
-    }
+        .forgot {
+            margin-top: 12px;
+            font-size: 14px;
+        }
 
-    .bottom-text a,
-    .forgot-link {
-      color: #1f73ea;
-      text-decoration: none;
-      font-weight: 700;
-    }
+        .back-home {
+            display: inline-block;
+            margin-top: 16px;
+            font-size: 13px;
+            color: #666;
+            text-decoration: none;
+        }
 
-    .forgot-link {
-      display: block;
-      text-align: center;
-      margin-top: 20px;
-      font-size: 15px;
-    }
+        .back-home:hover {
+            color: #1f6fe5;
+        }
 
-    @media (max-width: 576px) {
-      .login-card {
-        padding: 32px 22px 28px;
-        border-radius: 20px;
-      }
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 24px 18px 20px;
+            }
 
-      .login-card h1 {
-        font-size: 28px;
-      }
+            .login-card h1 {
+                font-size: 20px;
+            }
 
-      .subtitle {
-        font-size: 13px;
-      }
-
-      .input-box input {
-        height: 52px;
-        font-size: 15px;
-      }
-
-      .login-btn {
-        height: 54px;
-        font-size: 17px;
-      }
-    }
-  </style>
+            .login-card p {
+                font-size: 13px;
+            }
+        }
+    </style>
 </head>
+
 <body>
-  <div class="login-wrapper">
-    <div class="login-card">
-      <div class="user-icon">
-        <i class="fa-regular fa-user"></i>
-      </div>
 
-      <h1>Login User</h1>
-      <p class="subtitle">
-        Silakan masuk untuk mengakses sistem EyeDetect<br>
-        dan gunakan fitur deteksi dengan mudah.
-      </p>
+    <div class="login-wrapper">
+        <div class="login-card">
 
-      <form action="/login" method="POST">
-        <div class="form-group">
-          <label for="email">Email</label>
-          <div class="input-box">
-            <i class="fa-regular fa-envelope left-icon"></i>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Masukkan email Anda"
-              required
-            />
-          </div>
+            <div class="user-icon">
+                <i class="fa-solid fa-user"></i>
+            </div>
+
+            <h1>Login User</h1>
+
+            <p>
+                Silakan masuk untuk mengakses<br>
+                sistem monitoring kami
+            </p>
+
+            <form action="{{ route('login.proses') }}" method="POST">
+                @csrf
+
+                <div class="input-group">
+                    <i class="fa-regular fa-envelope left-icon"></i>
+                    <input type="email" name="email" placeholder="Email" value="{{ old('email') }}" required>
+                </div>
+
+                @error('email')
+                    <div class="error-text">{{ $message }}</div>
+                @enderror
+
+                <div class="input-group">
+                    <i class="fa-solid fa-lock left-icon"></i>
+                    <input type="password" name="password" placeholder="Password" id="password" required>
+                    <i class="fa-regular fa-eye right-icon" onclick="togglePassword(this)"></i>
+                </div>
+
+                @error('password')
+                    <div class="error-text">{{ $message }}</div>
+                @enderror
+
+                <button type="submit" class="btn-login">Masuk</button>
+            </form>
+
+            <div class="extra-text">
+                Belum punya akun? <a href="{{ url('/daftar') }}">Daftar</a>
+            </div>
+
+            <div class="forgot">
+                <a href="{{ url('/lupa-password') }}">Lupa password?</a>
+            </div>
+
+            <a href="{{ url('/') }}" class="back-home">← Kembali ke Beranda</a>
+
         </div>
-
-        <div class="form-group">
-          <label for="password">Password</label>
-          <div class="input-box">
-            <i class="fa-solid fa-lock left-icon"></i>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Masukkan password Anda"
-              required
-            />
-            <button type="button" class="right-icon" onclick="togglePassword()">
-              <i class="fa-regular fa-eye" id="eyeIcon"></i>
-            </button>
-          </div>
-        </div>
-
-        <button type="submit" class="login-btn">
-          <i class="fa-solid fa-right-to-bracket"></i> Masuk
-        </button>
-      </form>
-
-      <div class="bottom-text">
-        Belum punya akun? <a href="/register">Daftar</a>
-      </div>
-
-      <a href="/forgot-password" class="forgot-link">Lupa password?</a>
     </div>
-  </div>
 
-  <script>
-    function togglePassword() {
-      const passwordInput = document.getElementById("password");
-      const eyeIcon = document.getElementById("eyeIcon");
+    <script>
+        function togglePassword(icon) {
+            const password = document.getElementById('password');
 
-      if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-        eyeIcon.classList.remove("fa-eye");
-        eyeIcon.classList.add("fa-eye-slash");
-      } else {
-        passwordInput.type = "password";
-        eyeIcon.classList.remove("fa-eye-slash");
-        eyeIcon.classList.add("fa-eye");
-      }
-    }
-  </script>
+            if (password.type === 'password') {
+                password.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                password.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+    </script>
+
 </body>
 </html>
