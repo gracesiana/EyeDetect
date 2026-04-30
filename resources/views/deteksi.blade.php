@@ -3,398 +3,813 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mulai Deteksi</title>
+    <title>Mulai Deteksi - EyeDetect</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
         body {
-            margin: 0;
-            font-family: Arial, sans-serif;
             background: #f4f8ff;
-        }
-
-        .deteksi-page {
-            min-height: 100vh;
-            padding: 35px 45px;
-        }
-
-        .deteksi-header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .deteksi-header h1 {
             color: #061b49;
-            font-size: 42px;
-            margin: 0;
-            font-weight: 900;
         }
 
-        .deteksi-header p {
-            color: #5d6f95;
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 260px;
+            min-height: 100vh;
+            background: #ffffff;
+            border-right: 1px solid #e5edf8;
+            padding: 28px 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 42px;
+        }
+
+        .logo-icon {
+            font-size: 28px;
+            color: #1473e6;
+        }
+
+        .logo h2 {
+            font-size: 24px;
+            font-weight: 800;
+            color: #061b49;
+        }
+
+        .logo h2 span {
+            color: #1473e6;
+        }
+
+        .menu a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+            color: #1f2f4d;
+            font-weight: 700;
             font-size: 15px;
+            padding: 14px 16px;
+            border-radius: 12px;
+            margin-bottom: 12px;
         }
 
-        .upload-card {
-            max-width: 620px;
-            margin: auto;
-            background: white;
-            padding: 30px;
-            border-radius: 16px;
-            text-align: center;
-            box-shadow: 0 8px 25px rgba(15, 42, 95, 0.12);
+        .menu a i {
+            width: 20px;
+            font-size: 17px;
         }
 
-        .upload-icon {
-            width: 55px;
-            height: 55px;
-            background: #e8f1ff;
-            color: #1167df;
+        .menu a.active,
+        .menu a:hover {
+            background: #eaf3ff;
+            color: #1473e6;
+        }
+
+        .user-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #f1f6ff;
+            border-radius: 14px;
+            padding: 14px;
+            margin-bottom: 18px;
+        }
+
+        .avatar {
+            width: 42px;
+            height: 42px;
+            background: #dcebff;
+            color: #1473e6;
             border-radius: 50%;
-            margin: 0 auto 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
         }
 
-        .upload-card h2 {
+        .user-box h4 {
+            font-size: 14px;
+            color: #061b49;
+        }
+
+        .user-box p {
+            font-size: 12px;
+            color: #667085;
+        }
+
+        .logout-btn {
+            width: 100%;
+            height: 44px;
+            border: 1px solid #dbe7f5;
+            background: #ffffff;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #1f2f4d;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .main {
+            margin-left: 260px;
+            width: calc(100% - 260px);
+            min-height: 100vh;
+        }
+
+        .topbar {
+            height: 76px;
+            background: #ffffff;
+            border-bottom: 1px solid #e5edf8;
+            padding: 0 46px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .topbar h1 {
+            font-size: 30px;
+            font-weight: 800;
+            color: #061b49;
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            color: #061b49;
+            font-size: 16px;
+        }
+
+        .topbar-right i {
+            font-size: 20px;
+        }
+
+        .content {
+            padding: 30px 42px;
+        }
+
+        .detect-header {
+            text-align: center;
+            margin-bottom: 22px;
+            position: relative;
+        }
+
+        .detect-header h2 {
+            font-size: 38px;
+            font-weight: 900;
             color: #061b49;
             margin-bottom: 8px;
         }
 
+        .detect-header p {
+            font-size: 14px;
+            color: #667085;
+        }
+
+        .upload-card {
+            width: 620px;
+            max-width: 100%;
+            margin: 0 auto 22px;
+            background: #ffffff;
+            border: 1px solid #dfe9f7;
+            border-radius: 14px;
+            box-shadow: 0 8px 22px rgba(20, 115, 230, 0.08);
+            padding: 24px;
+            text-align: center;
+        }
+
+        .upload-top-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: #eaf3ff;
+            color: #1473e6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin: 0 auto 12px;
+            border: 1px solid #b8d6ff;
+        }
+
+        .upload-card h3 {
+            font-size: 18px;
+            font-weight: 800;
+            color: #061b49;
+            margin-bottom: 6px;
+        }
+
         .upload-card p {
-            color: #6d7d9f;
-            font-size: 14px;
+            font-size: 12px;
+            color: #667085;
+            margin-bottom: 16px;
+            line-height: 1.5;
         }
 
-        .dropzone {
-            border: 2px dashed #1167df;
-            background: #f8fbff;
-            border-radius: 14px;
-            padding: 35px 20px;
-            margin: 20px 0;
-            cursor: pointer;
-        }
-
-        .dropzone:hover {
-            background: #eef5ff;
-        }
-
-        .retina-icon {
-            font-size: 70px;
-            margin-bottom: 10px;
-        }
-
-        .dropzone strong {
-            color: #52668e;
-            font-size: 14px;
-        }
-
-        .dropzone small {
-            color: #8a9abb;
-            display: block;
-            margin-top: 5px;
-        }
-
-        .format {
-            font-size: 13px;
-            color: #6d7d9f;
-        }
-
-        .btn-upload {
-            background: #1167df;
-            color: white;
-            border: none;
-            padding: 11px 38px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .btn-analyze {
-            display: block;
-            margin: 18px auto 0;
-            background: #071c4d;
-            color: white;
-            border: none;
-            padding: 14px 55px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .result-grid {
-            max-width: 900px;
-            margin: 28px auto 0;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-        }
-
-        .box {
-            background: white;
-            border-radius: 14px;
-            border: 1px solid #d8e6fb;
-            box-shadow: 0 6px 20px rgba(15, 42, 95, 0.08);
-            overflow: hidden;
-        }
-
-        .box-title {
-            padding: 16px 20px;
-            border-bottom: 1px solid #e7eefb;
-            color: #115ecf;
-            font-weight: bold;
-        }
-
-        .preview {
-            margin: 18px;
-            height: 190px;
-            border: 2px dashed #d4e2f8;
+        .drop-area {
+            width: 380px;
+            max-width: 100%;
+            height: 150px;
+            margin: 0 auto 12px;
+            border: 2px dashed #9fc4ff;
             border-radius: 12px;
             background: #f8fbff;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #8394b5;
-            text-align: center;
+            cursor: pointer;
+            position: relative;
             overflow: hidden;
         }
 
-        .preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
+        .drop-area img {
+            max-width: 100%;
+            max-height: 100%;
             display: none;
+            object-fit: contain;
         }
 
-        .result-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 14px 20px;
-            border-bottom: 1px solid #edf2fb;
-            color: #516386;
-            font-size: 14px;
+        .drop-placeholder {
+            text-align: center;
+            color: #9ab2d4;
         }
 
-        .result-row span:first-child {
-            font-weight: bold;
+        .drop-placeholder i {
+            font-size: 58px;
+            margin-bottom: 8px;
         }
 
-        .badge {
-            background: #edf4ff;
-            color: #7890b6;
-            padding: 6px 12px;
-            border-radius: 8px;
+        .upload-info {
             font-size: 12px;
-            font-weight: bold;
+            color: #667085;
+            margin-bottom: 10px;
         }
 
-        .note {
-            margin: 14px 20px 18px;
-            background: #eef5ff;
-            color: #3167b8;
-            padding: 12px;
-            border-radius: 8px;
+        .file-format {
             font-size: 12px;
-            font-weight: bold;
+            font-weight: 700;
+            color: #667085;
+            margin-bottom: 12px;
         }
 
-        .guide-card {
-            max-width: 900px;
-            margin: 20px auto 0;
-            background: #f8fbff;
-            border: 1px solid #cfe0fa;
-            border-radius: 14px;
-            padding: 20px 25px;
+        .choose-btn {
+            height: 38px;
+            padding: 0 28px;
+            border: none;
+            background: #1473e6;
+            color: #ffffff;
+            border-radius: 8px;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .guide-card h3 {
-            margin-top: 0;
-            color: #115ecf;
-        }
-
-        .guide-steps {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 18px;
-        }
-
-        .guide-step {
-            display: flex;
-            gap: 12px;
-            font-size: 13px;
-            color: #1c3158;
-        }
-
-        .number {
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            background: #1167df;
-            color: white;
+        .analyze-btn {
+            width: 230px;
+            height: 44px;
+            border: none;
+            background: #061b49;
+            color: #ffffff;
+            border-radius: 8px;
+            font-weight: 800;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            flex-shrink: 0;
+            gap: 10px;
+            margin: 0 auto 20px;
         }
 
-        @media (max-width: 800px) {
-            .result-grid,
-            .guide-steps {
+        .detect-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+            max-width: 880px;
+            margin: 0 auto 22px;
+        }
+
+        .panel {
+            background: #ffffff;
+            border: 1px solid #dfe9f7;
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .panel-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: #1473e6;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .preview-box {
+            min-height: 210px;
+            border: 1.5px dashed #d0def2;
+            background: #f8fbff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #8494ad;
+            padding: 14px;
+        }
+
+        .preview-box img {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .preview-empty i {
+            font-size: 54px;
+            margin-bottom: 10px;
+            color: #aebbd0;
+        }
+
+        .preview-empty p {
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .result-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .result-row {
+            min-height: 42px;
+            border-bottom: 1px solid #edf2fa;
+            display: grid;
+            grid-template-columns: 28px 1fr auto;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: #344054;
+        }
+
+        .result-row i {
+            color: #1473e6;
+            font-size: 16px;
+        }
+
+        .result-row strong {
+            font-size: 12px;
+            color: #061b49;
+        }
+
+        .result-row span {
+            color: #667085;
+            font-size: 12px;
+        }
+
+        .status-pill {
+            background: #edf4ff;
+            color: #667085;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .info-note {
+            margin-top: 12px;
+            background: #edf4ff;
+            color: #1473e6;
+            font-size: 12px;
+            padding: 11px 12px;
+            border-radius: 8px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .how-card {
+            max-width: 880px;
+            margin: 0 auto 0;
+            background: #ffffff;
+            border: 1px solid #dfe9f7;
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .how-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: #1473e6;
+            margin-bottom: 14px;
+        }
+
+        .how-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .how-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .how-icon {
+            width: 36px;
+            height: 36px;
+            min-width: 36px;
+            background: #eaf3ff;
+            color: #1473e6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .how-item h4 {
+            font-size: 12px;
+            color: #061b49;
+            margin-bottom: 3px;
+        }
+
+        .how-item p {
+            font-size: 10px;
+            color: #667085;
+            line-height: 1.3;
+        }
+
+        .footer-bar {
+            margin-top: 28px;
+            height: 54px;
+            background: #06285f;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 38px;
+            font-size: 12px;
+        }
+
+        .footer-bar div {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        @media (max-width: 1000px) {
+            .sidebar {
+                width: 230px;
+            }
+
+            .main {
+                margin-left: 230px;
+                width: calc(100% - 230px);
+            }
+
+            .detect-grid {
                 grid-template-columns: 1fr;
             }
 
-            .deteksi-header h1 {
-                font-size: 32px;
+            .how-steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 760px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                min-height: auto;
             }
 
-            .deteksi-page {
-                padding: 25px 18px;
+            .main {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .topbar {
+                padding: 0 20px;
+            }
+
+            .content {
+                padding: 24px 18px;
+            }
+
+            .detect-header h2 {
+                font-size: 30px;
+            }
+
+            .how-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bar {
+                flex-direction: column;
+                height: auto;
+                gap: 10px;
+                padding: 18px;
+                text-align: center;
             }
         }
     </style>
 </head>
 
 <body>
-    <div class="deteksi-page">
-        <div class="deteksi-header">
+
+    <aside class="sidebar">
+        <div>
+            <div class="logo">
+                <i class="fa-regular fa-eye logo-icon"></i>
+                <h2><span>Eye</span>Detect</h2>
+            </div>
+
+            <nav class="menu">
+                <a href="{{ url('/dashboard') }}">
+                    <i class="fa-solid fa-house"></i>
+                    Beranda
+                </a>
+
+                <a href="{{ url('/cara-kerja') }}">
+                    <i class="fa-solid fa-book-open"></i>
+                    Cara Kerja/Panduan
+                </a>
+
+                <a href="{{ url('/deteksi') }}" class="active">
+                    <i class="fa-solid fa-stethoscope"></i>
+                    Deteksi
+                </a>
+
+                <a href="{{ url('/riwayat-skrining') }}">
+                    <i class="fa-regular fa-clock"></i>
+                    Riwayat Skrining
+                </a>
+
+                <a href="{{ url('/profile') }}">
+                    <i class="fa-regular fa-user"></i>
+                    Profil Saya
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-gear"></i>
+                    Pengaturan
+                </a>
+            </nav>
+        </div>
+
+        <div class="sidebar-bottom">
+            <div class="user-box">
+                <div class="avatar">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+
+                <div>
+                    <h4>Halo, {{ auth()->user()->name ?? 'gracesiana' }}</h4>
+                    <p>Pengguna</p>
+                </div>
+            </div>
+
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="logout-btn">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    Keluar
+                </button>
+            </form>
+        </div>
+    </aside>
+
+    <main class="main">
+        <header class="topbar">
             <h1>Mulai Deteksi</h1>
-            <p>Unggah citra retina untuk memulai proses analisis penyakit mata.</p>
-        </div>
 
-        <div class="upload-card">
-            <div class="upload-icon">☁</div>
+            <div class="topbar-right">
+                <i class="fa-regular fa-bell"></i>
+                <span>Halo, {{ auth()->user()->name ?? 'gracesiana' }}</span>
+            </div>
+        </header>
 
-            <h2>Upload Gambar Retina</h2>
-            <p>Unggah gambar retina dengan kualitas yang jelas agar analisis lebih akurat.</p>
+        <section class="content">
 
-            <label class="dropzone" for="gambarRetina">
-                <div class="retina-icon">👁️</div>
-                <strong>Seret & lepas gambar di sini</strong>
-                <small>atau klik tombol di bawah</small>
-            </label>
+            <div class="detect-header">
+                <p>Unggah citra retina untuk memulai proses analisis penyakit mata.</p>
+            </div>
 
-            <input type="file" id="gambarRetina" accept="image/png, image/jpg, image/jpeg" hidden>
+            <form action="#" method="POST" enctype="multipart/form-data">
+                @csrf
 
-            <div class="format">Format: JPG, JPEG, PNG</div>
-            <br>
-
-            <button class="btn-upload" onclick="document.getElementById('gambarRetina').click()">
-                Pilih Gambar
-            </button>
-        </div>
-
-        <button class="btn-analyze" onclick="analisisGambar()">
-            Analisis Sekarang
-        </button>
-
-        <div class="result-grid">
-            <div class="box">
-                <div class="box-title">Pratinjau Gambar</div>
-
-                <div class="preview">
-                    <div id="previewText">
-                        <div style="font-size: 45px;">🖼️</div>
-                        Gambar yang Anda unggah<br>akan ditampilkan di sini.
+                <div class="upload-card">
+                    <div class="upload-top-icon">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
                     </div>
 
-                    <img id="previewImage" alt="Preview Gambar">
+                    <h3>Upload Gambar Retina</h3>
+                    <p>Unggah gambar retina (fundus) dengan kualitas yang jelas<br>agar analisis lebih akurat.</p>
+
+                    <label for="retinaImage" class="drop-area">
+                        <div class="drop-placeholder" id="dropPlaceholder">
+                            <i class="fa-regular fa-image"></i>
+                            <p>Seret & lepas gambar di sini<br>atau klik tombol di bawah</p>
+                        </div>
+
+                        <img id="uploadPreview" alt="Preview Gambar Retina">
+                    </label>
+
+                    <input type="file" name="retina_image" id="retinaImage" accept="image/png,image/jpeg,image/jpg" hidden>
+
+                    <div class="upload-info" id="fileName">Belum ada file dipilih</div>
+                    <div class="file-format">Format: JPG, JPEG, PNG</div>
+
+                    <button type="button" class="choose-btn" onclick="document.getElementById('retinaImage').click()">
+                        <i class="fa-regular fa-folder-open"></i>
+                        Pilih Gambar
+                    </button>
+                </div>
+
+                <button type="button" class="analyze-btn">
+                    <i class="fa-solid fa-chart-simple"></i>
+                    Analisis Sekarang
+                </button>
+
+            </form>
+
+            <div class="detect-grid">
+
+                <div class="panel">
+                    <div class="panel-title">
+                        <i class="fa-regular fa-image"></i>
+                        Pratinjau Gambar
+                    </div>
+
+                    <div class="preview-box">
+                        <div class="preview-empty" id="previewEmpty">
+                            <i class="fa-regular fa-image"></i>
+                            <p>Gambar yang Anda unggah<br>akan ditampilkan di sini.</p>
+                        </div>
+
+                        <img id="bigPreview" alt="Pratinjau Gambar Retina">
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-title">
+                        <i class="fa-regular fa-clipboard"></i>
+                        Hasil Deteksi
+                    </div>
+
+                    <div class="result-list">
+                        <div class="result-row">
+                            <i class="fa-regular fa-file"></i>
+                            <strong>Nama File</strong>
+                            <span id="resultFileName">-</span>
+                        </div>
+
+                        <div class="result-row">
+                            <i class="fa-solid fa-bullseye"></i>
+                            <strong>Status Prediksi</strong>
+                            <span>-</span>
+                        </div>
+
+                        <div class="result-row">
+                            <i class="fa-solid fa-gauge-high"></i>
+                            <strong>Tingkat Kepercayaan</strong>
+                            <span>-</span>
+                        </div>
+
+                        <div class="result-row">
+                            <i class="fa-solid fa-brain"></i>
+                            <strong>Visualisasi Explainable AI</strong>
+                            <span class="status-pill">Belum tersedia</span>
+                        </div>
+                    </div>
+
+                    <div class="info-note">
+                        <i class="fa-solid fa-circle-info"></i>
+                        Hasil akan ditampilkan setelah proses analisis selesai.
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="how-card">
+                <div class="how-title">Cara Menggunakan</div>
+
+                <div class="how-steps">
+                    <div class="how-item">
+                        <div class="how-icon">
+                            <i class="fa-solid fa-shield-heart"></i>
+                        </div>
+                        <div>
+                            <h4>Privasi Aman</h4>
+                            <p>Gambar hanya digunakan untuk analisis.</p>
+                        </div>
+                    </div>
+
+                    <div class="how-item">
+                        <div class="how-icon">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                        </div>
+                        <div>
+                            <h4>Upload Gambar</h4>
+                            <p>Pilih citra retina yang jelas.</p>
+                        </div>
+                    </div>
+
+                    <div class="how-item">
+                        <div class="how-icon">
+                            <i class="fa-solid fa-chart-simple"></i>
+                        </div>
+                        <div>
+                            <h4>Klik Analisis</h4>
+                            <p>Sistem mulai memproses gambar.</p>
+                        </div>
+                    </div>
+
+                    <div class="how-item">
+                        <div class="how-icon">
+                            <i class="fa-regular fa-eye"></i>
+                        </div>
+                        <div>
+                            <h4>Lihat Hasil Deteksi</h4>
+                            <p>Prediksi akan tampil setelah selesai.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="box">
-                <div class="box-title">Hasil Deteksi</div>
+        </section>
 
-                <div class="result-row">
-                    <span>Nama File</span>
-                    <span id="namaFile">-</span>
-                </div>
+        <div class="footer-bar">
+            <div>
+                <i class="fa-solid fa-shield-halved"></i>
+                Privasi Aman. Semua data dan gambar yang diunggah hanya digunakan untuk keperluan analisis.
+            </div>
 
-                <div class="result-row">
-                    <span>Status Prediksi</span>
-                    <span id="statusPrediksi">-</span>
-                </div>
-
-                <div class="result-row">
-                    <span>Tingkat Kepercayaan</span>
-                    <span id="confidence">-</span>
-                </div>
-
-                <div class="result-row">
-                    <span>Visualisasi Explainable AI</span>
-                    <span class="badge">Belum tersedia</span>
-                </div>
-
-                <div class="note">
-                    Hasil akan ditampilkan setelah proses analisis selesai.
-                </div>
+            <div>
+                <i class="fa-solid fa-shield-heart"></i>
+                Aman & Terpercaya
             </div>
         </div>
-
-        <div class="guide-card">
-            <h3>Cara Menggunakan</h3>
-
-            <div class="guide-steps">
-                <div class="guide-step">
-                    <div class="number">1</div>
-                    <div>
-                        <strong>Upload Gambar</strong><br>
-                        Pilih dan unggah gambar retina.
-                    </div>
-                </div>
-
-                <div class="guide-step">
-                    <div class="number">2</div>
-                    <div>
-                        <strong>Klik Analisis</strong><br>
-                        Tekan tombol Analisis Sekarang.
-                    </div>
-                </div>
-
-                <div class="guide-step">
-                    <div class="number">3</div>
-                    <div>
-                        <strong>Lihat Hasil Deteksi</strong><br>
-                        Periksa hasil prediksi dari AI.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    </main>
 
     <script>
-        const inputGambar = document.getElementById("gambarRetina");
-        const previewImage = document.getElementById("previewImage");
-        const previewText = document.getElementById("previewText");
-        const namaFile = document.getElementById("namaFile");
-        const statusPrediksi = document.getElementById("statusPrediksi");
-        const confidence = document.getElementById("confidence");
+        const input = document.getElementById('retinaImage');
+        const uploadPreview = document.getElementById('uploadPreview');
+        const bigPreview = document.getElementById('bigPreview');
+        const dropPlaceholder = document.getElementById('dropPlaceholder');
+        const previewEmpty = document.getElementById('previewEmpty');
+        const fileName = document.getElementById('fileName');
+        const resultFileName = document.getElementById('resultFileName');
 
-        inputGambar.addEventListener("change", function () {
+        input.addEventListener('change', function () {
             const file = this.files[0];
 
             if (!file) return;
 
-            namaFile.innerText = file.name;
+            const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
 
-            previewImage.src = URL.createObjectURL(file);
-            previewImage.style.display = "block";
-            previewText.style.display = "none";
-
-            statusPrediksi.innerText = "-";
-            confidence.innerText = "-";
-        });
-
-        function analisisGambar() {
-            if (!inputGambar.files.length) {
-                alert("Silakan pilih gambar retina terlebih dahulu.");
+            if (!allowedTypes.includes(file.type)) {
+                alert('Format file harus JPG, JPEG, atau PNG.');
+                this.value = '';
                 return;
             }
 
-            statusPrediksi.innerText = "Normal";
-            confidence.innerText = "95%";
-        }
+            const imageUrl = URL.createObjectURL(file);
+
+            uploadPreview.src = imageUrl;
+            uploadPreview.style.display = 'block';
+
+            bigPreview.src = imageUrl;
+            bigPreview.style.display = 'block';
+
+            dropPlaceholder.style.display = 'none';
+            previewEmpty.style.display = 'none';
+
+            fileName.textContent = file.name;
+            resultFileName.textContent = file.name;
+        });
     </script>
+
 </body>
 </html>

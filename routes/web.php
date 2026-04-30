@@ -56,8 +56,8 @@ Route::get('/cara-kerja', function () {
 })->name('cara-kerja');
 
 Route::get('/profile', function () {
-    return view('profil');
-})->name('profil');
+    return view('profile');
+})->name('profile');
 
 Route::get('/riwayat-skrining', function () {
     return view('riwayat');
